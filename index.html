@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Finance Tracker India</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-gray-900 text-white">
+
+<div class="p-6">
+
+<h1 class="text-3xl font-bold mb-6">
+Student Finance Tracker 🇮🇳
+</h1>
+
+
+<div class="grid grid-cols-3 gap-6">
+
+<div class="bg-gray-800 p-4 rounded-xl">
+<h2>Total Portfolio</h2>
+<p id="totalValue" class="text-2xl mt-2">₹0</p>
+</div>
+
+
+<div class="bg-gray-800 p-4 rounded-xl">
+<h2>Monthly Investment</h2>
+<p class="text-2xl mt-2">₹0</p>
+</div>
+
+
+<div class="bg-gray-800 p-4 rounded-xl">
+<h2>Future Value (Projection)</h2>
+<p class="text-2xl mt-2">₹0</p>
+</div>
+
+</div>
+
+
+<div class="mt-8">
+
+<button
+onclick="addInvestment()"
+class="bg-green-500 px-6 py-2 rounded-lg">
+Add Investment
+</button>
+
+</div>
+
+
+<div class="mt-8">
+
+<canvas id="portfolioChart"></canvas>
+
+</div>
+
+</div>
+
+
+<script>
+
+let total = 0;
+
+function addInvestment(){
+
+let amount = prompt("Enter investment amount");
+
+if(amount){
+
+total += Number(amount);
+
+document.getElementById("totalValue").innerText = "₹" + total;
+
+updateChart();
+
+}
+
+}
+
+
+let ctx = document.getElementById('portfolioChart');
+
+let chart = new Chart(ctx, {
+
+type: 'pie',
+
+data: {
+
+labels: ['Equity','Mutual Fund','FD'],
+
+datasets: [{
+
+data: [30,40,30],
+
+}]
+
+}
+
+});
+
+
+function updateChart(){
+
+chart.data.datasets[0].data = [
+
+total*0.4,
+
+total*0.4,
+
+total*0.2
+
+];
+
+chart.update();
+
+}
+
+</script>
+
+</body>
+</html>
