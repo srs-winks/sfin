@@ -1,125 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Finance Tracker India</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudentFolio – Your Finance Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body>
+  <div class="mob-overlay" id="mobOverlay"></div>
 
-<body class="bg-gray-900 text-white">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon">₹</div>
+      <div>
+        <div class="brand-name">StudentFolio</div>
+        <div class="brand-sub">Finance Companion</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">📊</span><span class="nav-label">Dashboard</span>
+      </a>
+      <a class="nav-item" data-page="portfolio">
+        <span class="nav-icon">💼</span><span class="nav-label">Portfolio</span>
+      </a>
+      <a class="nav-item" data-page="goals">
+        <span class="nav-icon">🎯</span><span class="nav-label">Goals</span>
+      </a>
+      <a class="nav-item" data-page="advisor">
+        <span class="nav-icon">🤖</span><span class="nav-label">Advisor</span>
+      </a>
+      <a class="nav-item" data-page="whyearly">
+        <span class="nav-icon">📈</span><span class="nav-label">Why Start Early?</span>
+      </a>
+      <a class="nav-item" data-page="funds">
+        <span class="nav-icon">🏦</span><span class="nav-label">Fund Explorer</span>
+      </a>
+    </nav>
+    <div class="nav-footer">
+      <a class="nav-item" data-page="profile">
+        <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
+      </a>
+      <div class="sidebar-disclaimer">⚠️ Not SEBI Registered.<br/>Educational use only.</div>
+    </div>
+  </aside>
 
-<div class="p-6">
+  <div class="main-wrap">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-right">
+        <span class="price-badge" id="priceBadge">🟡 Manual Mode</span>
+        <button class="btn-refresh" id="btnRefresh">⟳ Refresh Prices</button>
+      </div>
+    </header>
+    <div class="content" id="content"></div>
+  </div>
 
-<h1 class="text-3xl font-bold mb-6">
-Student Finance Tracker 🇮🇳
-</h1>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+  <div class="toast" id="toast"></div>
 
-
-<div class="grid grid-cols-3 gap-6">
-
-<div class="bg-gray-800 p-4 rounded-xl">
-<h2>Total Portfolio</h2>
-<p id="totalValue" class="text-2xl mt-2">₹0</p>
-</div>
-
-
-<div class="bg-gray-800 p-4 rounded-xl">
-<h2>Monthly Investment</h2>
-<p class="text-2xl mt-2">₹0</p>
-</div>
-
-
-<div class="bg-gray-800 p-4 rounded-xl">
-<h2>Future Value (Projection)</h2>
-<p class="text-2xl mt-2">₹0</p>
-</div>
-
-</div>
-
-
-<div class="mt-8">
-
-<button
-onclick="addInvestment()"
-class="bg-green-500 px-6 py-2 rounded-lg">
-Add Investment
-</button>
-
-</div>
-
-
-<div class="mt-8">
-
-<canvas id="portfolioChart"></canvas>
-
-</div>
-
-</div>
-
-
-<script>
-
-let total = 0;
-
-function addInvestment(){
-
-let amount = prompt("Enter investment amount");
-
-if(amount){
-
-total += Number(amount);
-
-document.getElementById("totalValue").innerText = "₹" + total;
-
-updateChart();
-
-}
-
-}
-
-
-let ctx = document.getElementById('portfolioChart');
-
-let chart = new Chart(ctx, {
-
-type: 'pie',
-
-data: {
-
-labels: ['Equity','Mutual Fund','FD'],
-
-datasets: [{
-
-data: [30,40,30],
-
-}]
-
-}
-
-});
-
-
-function updateChart(){
-
-chart.data.datasets[0].data = [
-
-total*0.4,
-
-total*0.4,
-
-total*0.2
-
-];
-
-chart.update();
-
-}
-
-</script>
-
+  <script src="app.js"></script>
 </body>
 </html>
